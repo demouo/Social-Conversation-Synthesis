@@ -36,7 +36,7 @@ def main():
         prompt_mapping[topic] = prompt
         print(prompt)
 
-        with open('prompts/fits_generic_topic_prompt_mapping.json', 'w') as f:
+        with open('prompts/my_fits_generic_topic_prompt_mapping.json', 'w') as f:
             json.dump(prompt_mapping, f)
 
 

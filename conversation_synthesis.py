@@ -81,7 +81,7 @@ def main():
                         speaker = "Speaker 1"
                     else:
                         speaker = "Speaker 2"
-
+                    # TODO 甚至直接拼字符串 （？）
                     conv_str = conv_str + "\n{}: {}".format(speaker, utt)
                 conversation_pool.append(conv_str)
             print("Created DailyDialog Conversation Pool")
@@ -100,7 +100,6 @@ def main():
                     for i, utt in enumerate(convo['conversation']):
                         if i % 2 == 0:
                             speaker = "Speaker 1"
-
                         else:
                             speaker = "Speaker 2"
 
@@ -172,13 +171,12 @@ def main():
         total_conversations = len(fits_data)
         conversation_indices = list(range(conversations_written, total_conversations))
 
-    for fits_index in conversation_indices:
-        fits_topics = fits_data[fits_index]
+    for i in conversation_indices:
+        fits_topics = fits_data[i]
 
         if args.examples == "first_three":
             examples_idx = [0, 1, 2]
             examples = conversation_pool[:3]
-
         else:
             examples_idx = random.sample([i for i in range(len(conversation_pool))], args.num_in_context_examples)
             examples = [conversation_pool[i] for i in examples_idx]
@@ -291,7 +289,7 @@ def main():
                         'domain': domain,
                         'prompt_personality': prompt_personality,
                         'in_context_examples': examples_idx,
-                        'conv_id': fits_index
+                        'conv_id': i
                     }))
                     f.write('\n')
 

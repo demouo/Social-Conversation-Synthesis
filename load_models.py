@@ -3,17 +3,16 @@ Helper functions to return model, tokenizer for multiple different models.
 """
 
 import os
-os.environ['CUDA_VISIBLE_DEVICES']='6'
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '6'
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 import os
 import torch.nn as nn
 
-
 device = "cuda" if torch.cuda.is_available() else "cpu"
 NoneType = type(None)
-
 
 model_path = "/home/ubuntu/Desktop/ModelforMoXingShiXun/project/text-generation-webui/models/chatglm3-6b"
 
@@ -62,7 +61,7 @@ def load_gptj_bak(model_path="EleutherAI/gpt-j-6B"):
     if os.path.exists("gpt-j-6B.pt"):
         model = torch.load("gpt-j-6B.pt")
         print("Loaded {} from memory onto CPU".format(modelname))
-    else:        
+    else:
         model = AutoModelForCausalLM.from_pretrained(model_path)
 
     if device == "cuda":
@@ -71,7 +70,12 @@ def load_gptj_bak(model_path="EleutherAI/gpt-j-6B"):
     tokenizer = AutoTokenizer.from_pretrained(model_path, truncation_side="left")
     return model, tokenizer
 
+
+def load_local_model(model_path):
+    pass
+
+
 def load_gptj():
-	tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True,truncation_side="left")
-	model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True).to(device)
-	return model, tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True, truncation_side="left")
+    model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True).to(device)
+    return model, tokenizer
