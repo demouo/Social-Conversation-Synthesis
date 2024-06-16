@@ -87,7 +87,7 @@ def main():
                 conv_str = "The following is a conversation between two speakers about {}.".format(
                     dyda_topic_map[int(dyda_topics[dialognum].rstrip())]
                 )
-
+                dialog = dialog.split(" __eou__ ")
                 for i, utt in enumerate(dialog):
                     if i % 2 == 0:
                         speaker = "Speaker 1"
