@@ -83,6 +83,7 @@ def main():
                     line = f.readline()
 
             for dialognum, dialog in enumerate(train_dialogs):
+                print("dialog is ", dialog)
                 conv_str = "The following is a conversation between two speakers about {}.".format(
                     dyda_topic_map[int(dyda_topics[dialognum].rstrip())]
                 )
@@ -128,7 +129,7 @@ def main():
     with open(os.path.join(args.fits_path, "data/fits/human_model_chats/train.txt"), "r") as f:
         line = f.readline()
         fits_data = []
-        print(line[-10:])
+
         while line:
             example = json.loads(line)
             fits_data.append(example)
