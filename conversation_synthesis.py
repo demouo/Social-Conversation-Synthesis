@@ -74,13 +74,8 @@ def main():
             # train_dialogs = ex['train']['dialog']
 
             # 本地处理
-            train_dialogs = []
-            with open(os.path.join(args.in_context_dataset_path, "dialogues_train.txt"), "r") as f:
-                line = f.readline()
-                while line:
-                    text = line
-                    train_dialogs.append(text)
-                    line = f.readline()
+            with open("./data/daily_dialog/daily_dialog_only.json", "r", encoding="utf-8") as fp:
+                train_dialogs = json.load(fp)
 
             for dialognum, dialog in enumerate(train_dialogs):
                 print("dialog is ", dialog)
