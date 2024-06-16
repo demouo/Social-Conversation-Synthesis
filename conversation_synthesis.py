@@ -68,8 +68,19 @@ def main():
                     line = f.readline()
 
             conversation_pool = []
-            ex = load_dataset("daily_dialog")
-            train_dialogs = ex['train']['dialog']
+
+            # 不调用hub， 本地下载并处理
+            # ex = load_dataset("daily_dialog")
+            # train_dialogs = ex['train']['dialog']
+
+            # 本地处理
+            train_dialogs = []
+            with open(os.path.join(args.in_context_dataset_path, "dialogues_train.txt"), "r") as f:
+                line = f.readline()
+                while line:
+                    text = line
+                    train_dialogs.append(text)
+                    line = f.readline()
 
             for dialognum, dialog in enumerate(train_dialogs):
                 conv_str = "The following is a conversation between two speakers about {}.".format(
@@ -117,7 +128,7 @@ def main():
     with open(os.path.join(args.fits_path, "data/fits/human_model_chats/train.txt"), "r") as f:
         line = f.readline()
         fits_data = []
-
+        print(line[-10:])
         while line:
             example = json.loads(line)
             fits_data.append(example)
