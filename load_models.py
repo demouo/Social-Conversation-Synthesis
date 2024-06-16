@@ -2,6 +2,9 @@
 Helper functions to return model, tokenizer for multiple different models.
 """
 
+import os
+os.environ['CUDA_VISIBLE_DEVICES']='6'
+
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 import os
@@ -10,6 +13,9 @@ import torch.nn as nn
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 NoneType = type(None)
+
+
+model_path = "/home/ubuntu/Desktop/ModelforMoXingShiXun/project/text-generation-webui/models/chatglm3-6b"
 
 
 def load_opt30b():
@@ -49,7 +55,7 @@ def freeze_params(model: nn.Module, exclude: list = None):
     print("========================")
 
 
-def load_gptj(model_path="EleutherAI/gpt-j-6B"):
+def load_gptj_bak(model_path="EleutherAI/gpt-j-6B"):
     print("Loading GPT-J 6B")
     # --- Load models ---
     modelname = model_path.split('/')[-1]
@@ -64,3 +70,8 @@ def load_gptj(model_path="EleutherAI/gpt-j-6B"):
         print("Moved models onto GPU")
     tokenizer = AutoTokenizer.from_pretrained(model_path, truncation_side="left")
     return model, tokenizer
+
+def load_gptj():
+	tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True,truncation_side="left")
+	model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True).to(device)
+	return model, tokenizer
